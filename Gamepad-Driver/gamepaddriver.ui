@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GamepadDriver</class>
+ <widget class="QMainWindow" name="GamepadDriver">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>550</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>550</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>GamepadDriver</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
