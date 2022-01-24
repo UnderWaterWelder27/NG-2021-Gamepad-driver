@@ -1,0 +1,18 @@
+# Prerequisites
+**/bin
+**/obj
+*.cbp
+*.layout
+*.depend
+*.d
+*.o
+
+# Executable
+*.exe
+*.dll
+
+# Qt project files
+*.user
+
+# Desktop file
+*.ini
