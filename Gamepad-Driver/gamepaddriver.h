@@ -2,8 +2,9 @@
 #define GAMEPADDRIVER_H
 
 #include <QMainWindow>
-#include <QGamepad>
 #include <QObject>
+#include <QGamepad>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
@@ -16,6 +17,8 @@ class GamepadDriver : public QMainWindow
 public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
+
+    void changeConectionStatus();
 
 private:
     Ui::GamepadDriver *ui;
