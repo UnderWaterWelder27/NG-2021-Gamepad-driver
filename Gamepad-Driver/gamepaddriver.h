@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QGamepad>
 #include <QDebug>
+#include <QCursor>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
@@ -18,7 +19,9 @@ public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
 
+public slots:
     void changeConectionStatus();
+    void changeMousePos();
 
 private:
     Ui::GamepadDriver *ui;
