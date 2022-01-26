@@ -37,6 +37,7 @@ public slots:
     void changeMousePos();
     void clickLeftMouseButton(bool pressSignal);
     void clickRightMouseButton(bool pressSignal);
+    void doubleClick(bool pressSignal);
 
 private:
     Ui::GamepadDriver *ui;
