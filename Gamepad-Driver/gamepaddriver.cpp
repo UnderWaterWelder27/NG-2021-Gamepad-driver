@@ -14,8 +14,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisRightXChanged, this, [](double value){ qDebug() << "Right X" << value; });
     connect (m_gamepad, &QGamepad::axisRightYChanged, this, [](double value){ qDebug() << "Right Y" << value; });
-    connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::clickMouseButton);
-    connect (m_gamepad, &QGamepad::buttonR1Changed, this, [](bool value){ qDebug() << "RB" << value; });
+    connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::clickLeftMouseButton);
+    connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::clickRightMouseButton);
 }
 
 GamepadDriver::~GamepadDriver()
@@ -34,27 +34,22 @@ void GamepadDriver::changeMousePos()
     double cursorY = QCursor::pos().y();
     double axisX = m_gamepad->axisLeftX();
     double axisY = m_gamepad->axisLeftY();
-    double sensitivity = 4.1;
 
-    if (axisX > 0.93 || axisX < -0.93 || axisY > 0.93 || axisX < -0.93) {
-        sensitivity = 7.1;
-    }
-    else if (axisX > 0.74 || axisX < -0.74 || axisY > 0.74 || axisX < -0.74) {
-        sensitivity = 6.1;
-    }
-    else if (axisX > 0.63 || axisX < -0.63 || axisY > 0.63 || axisX < -0.63) {
-        sensitivity = 5.1;
-    }
-
-    QCursor::setPos(cursorX + axisX*sensitivity, cursorY + axisY*sensitivity);
-
+    QCursor::setPos(cursorX + axisX*4.4, cursorY + axisY*4.4);
 }
 
-void GamepadDriver::clickMouseButton(bool pressSignal)
+void GamepadDriver::clickLeftMouseButton(bool pressSignal)
 {
     double X = QCursor::pos().x();
     double Y = QCursor::pos().y();
+    if (pressSignal == true) { mouse_event(LEFTDOWN, X, Y, 0, 0); }
+    else { mouse_event(LEFTUP, X, Y, 0, 0); }
+}
 
-    if (pressSignal == true) { mouse_event(0x0002, X, Y, 0, 0); }
-    else { mouse_event(0x0004, X, Y, 0, 0); }
+void GamepadDriver::clickRightMouseButton(bool pressSignal)
+{
+    double X = QCursor::pos().x();
+    double Y = QCursor::pos().y();
+    if (pressSignal == true) { mouse_event(RIGHTDOWN, X, Y, 0, 0); }
+    else { mouse_event(RIGHTUP, X, Y, 0, 0); }
 }

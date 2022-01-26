@@ -20,10 +20,23 @@ public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
 
+
+    enum MouseEventFlags
+    {
+        LEFTDOWN = 0x0002,
+        LEFTUP = 0x0004,
+        MIDDLEDOWN = 0x0020,
+        RIGHTDOWN = 0x0008,
+        RIGHTUP = 0x0010,
+        MIDDLEUP = 0x0040,
+        MOVE = 0x0001
+    };
+
 public slots:
     void changeConectionStatus();
     void changeMousePos();
-    void clickMouseButton(bool pressSignal);
+    void clickLeftMouseButton(bool pressSignal);
+    void clickRightMouseButton(bool pressSignal);
 
 private:
     Ui::GamepadDriver *ui;
