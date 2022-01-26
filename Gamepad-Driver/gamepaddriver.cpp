@@ -14,7 +14,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisRightXChanged, this, [](double value){ qDebug() << "Right X" << value; });
     connect (m_gamepad, &QGamepad::axisRightYChanged, this, [](double value){ qDebug() << "Right Y" << value; });
-    connect (m_gamepad, &QGamepad::buttonL1Changed, this, [](bool value){ qDebug() << "LB" << value; });
+    connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::clickMouseButton);
     connect (m_gamepad, &QGamepad::buttonR1Changed, this, [](bool value){ qDebug() << "RB" << value; });
 }
 
@@ -48,4 +48,13 @@ void GamepadDriver::changeMousePos()
 
     QCursor::setPos(cursorX + axisX*sensitivity, cursorY + axisY*sensitivity);
 
+}
+
+void GamepadDriver::clickMouseButton(bool pressSignal)
+{
+    double X = QCursor::pos().x();
+    double Y = QCursor::pos().y();
+
+    if (pressSignal == true) { mouse_event(0x0002, X, Y, 0, 0); }
+    else { mouse_event(0x0004, X, Y, 0, 0); }
 }

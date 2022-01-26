@@ -6,6 +6,7 @@
 #include <QGamepad>
 #include <QDebug>
 #include <QCursor>
+#include <windows.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
@@ -22,6 +23,7 @@ public:
 public slots:
     void changeConectionStatus();
     void changeMousePos();
+    void clickMouseButton(bool pressSignal);
 
 private:
     Ui::GamepadDriver *ui;
