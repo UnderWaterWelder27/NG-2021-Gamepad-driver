@@ -26,8 +26,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 /// BIND GAMEPAD KEYS
     connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
-    connect (m_gamepad, &QGamepad::axisRightXChanged, this, [](double value){ qDebug() << "Right X" << value; });
-    connect (m_gamepad, &QGamepad::axisRightYChanged, this, [](double value){ qDebug() << "Right Y" << value; });
+    connect (m_gamepad, &QGamepad::axisRightYChanged, this, &GamepadDriver::rotateMouseWheel);
     connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::clickLeftMouseButton);
     connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::clickRightMouseButton);
     connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::doubleClick);
@@ -66,24 +65,24 @@ void GamepadDriver::changeMousePos()
 
 void GamepadDriver::clickLeftMouseButton(bool pressSignal)
 {
-    double X = QCursor::pos().x();
-    double Y = QCursor::pos().y();
-    if (pressSignal == true) { mouse_event(LEFTDOWN, X, Y, 0, 0); }
-    else { mouse_event(LEFTUP, X, Y, 0, 0); }
+    if (pressSignal == true)    { mouse_event(LEFTDOWN, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
+    else                        { mouse_event(LEFTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
 }
 
 void GamepadDriver::clickRightMouseButton(bool pressSignal)
 {
-    double X = QCursor::pos().x();
-    double Y = QCursor::pos().y();
-    if (pressSignal == true) { mouse_event(RIGHTDOWN, X, Y, 0, 0); }
-    else { mouse_event(RIGHTUP, X, Y, 0, 0); }
+    if (pressSignal == true)    { mouse_event(RIGHTDOWN, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
+    else                        { mouse_event(RIGHTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
 }
 
 void GamepadDriver::doubleClick(bool pressSignal)
 {
-    double X = QCursor::pos().x();
-    double Y = QCursor::pos().y();
-    if (pressSignal == true) { mouse_event(LEFTDOWN, X, Y, 0, 0); }
-    mouse_event(LEFTUP, X, Y, 0, 0);
+    if (pressSignal == true)    { mouse_event(LEFTDOWN, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
+                                  mouse_event(LEFTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0);
+}
+
+void GamepadDriver::rotateMouseWheel()
+{
+    if (m_gamepad->axisRightY() > 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), -30, 0); }
+    if (m_gamepad->axisRightY() < 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), 30, 0); }
 }

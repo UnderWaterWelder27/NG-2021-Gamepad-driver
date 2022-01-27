@@ -26,10 +26,11 @@ public:
     {
         LEFTDOWN = 0x0002,
         LEFTUP = 0x0004,
-        MIDDLEDOWN = 0x0020,
         RIGHTDOWN = 0x0008,
         RIGHTUP = 0x0010,
+        MIDDLEDOWN = 0x0020,
         MIDDLEUP = 0x0040,
+        WHEELROTATE = 0x0800,
         MOVE = 0x0001
     };
 
@@ -39,6 +40,7 @@ public slots:
     void clickLeftMouseButton(bool pressSignal);
     void clickRightMouseButton(bool pressSignal);
     void doubleClick(bool pressSignal);
+    void rotateMouseWheel();
 
 private:
     Ui::GamepadDriver *ui;

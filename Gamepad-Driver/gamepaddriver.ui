@@ -92,7 +92,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>Left axis value</string>
+                   <string>Left axis X</string>
                   </property>
                  </widget>
                 </item>
@@ -119,7 +119,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>Right axis value</string>
+                   <string>Left axis Y</string>
                   </property>
                  </widget>
                 </item>
