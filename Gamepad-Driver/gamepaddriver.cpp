@@ -11,8 +11,10 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 /// AXIS QSPINBOXES
     ui->sb_axisLeftX->setReadOnly(true);
     ui->sb_axisLeftY->setReadOnly(true);
+    ui->sb_axisRightY->setReadOnly(true);
     ui->sb_axisLeftX->setRange(-1.0000000, 1.0000000);
     ui->sb_axisLeftY->setRange(-1.0000000, 1.0000000);
+    ui->sb_axisRightY->setRange(-1.0000000, 1.0000000);
 
 /// CURSOR QSPINBOXES
     ui->sb_mousePosX->setReadOnly(true);
@@ -85,4 +87,6 @@ void GamepadDriver::rotateMouseWheel()
 {
     if (m_gamepad->axisRightY() > 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), -30, 0); }
     if (m_gamepad->axisRightY() < 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), 30, 0); }
+
+    ui->sb_axisRightY->setValue(m_gamepad->axisRightY());
 }
