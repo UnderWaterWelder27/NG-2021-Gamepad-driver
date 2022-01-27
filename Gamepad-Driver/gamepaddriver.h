@@ -6,6 +6,7 @@
 #include <QGamepad>
 #include <QDebug>
 #include <QCursor>
+#include <QSpinBox>
 #include <windows.h>
 
 QT_BEGIN_NAMESPACE
