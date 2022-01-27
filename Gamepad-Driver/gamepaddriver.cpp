@@ -10,9 +10,15 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 
 /// AXIS QSPINBOXES
     ui->sb_axisLeftX->setReadOnly(true);
-    ui->sb_axisLeftX->setRange(-1.0000000, 1.0000000);
     ui->sb_axisLeftY->setReadOnly(true);
+    ui->sb_axisLeftX->setRange(-1.0000000, 1.0000000);
     ui->sb_axisLeftY->setRange(-1.0000000, 1.0000000);
+
+/// CURSOR QSPINBOXES
+    ui->sb_mousePosX->setReadOnly(true);
+    ui->sb_mousePosY->setReadOnly(true);
+    ui->sb_mousePosX->setRange(0, 1400);
+    ui->sb_mousePosY->setRange(0, 800);
 
     m_gamepad = new QGamepad;
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
@@ -53,6 +59,9 @@ void GamepadDriver::changeMousePos()
 
     ui->sb_axisLeftX->setValue(axisX);
     ui->sb_axisLeftY->setValue(axisY);
+
+    ui->sb_mousePosX->setValue(QCursor::pos().x());
+    ui->sb_mousePosY->setValue(QCursor::pos().y());
 }
 
 void GamepadDriver::clickLeftMouseButton(bool pressSignal)
