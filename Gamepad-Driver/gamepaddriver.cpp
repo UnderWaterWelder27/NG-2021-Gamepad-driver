@@ -8,9 +8,13 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_gamepad = new QGamepad;
+    m_cursorSens = 15;
+    m_wheelSens = 15;
+
 /// SENSETIVITY SLIDERS
-    ui->sl_moveSensetivity->setRange(2, 15);
-    ui->sl_wheelSensetivity->setRange(2, 15);
+    ui->sl_moveSensetivity->setRange(15, 70);
+    ui->sl_wheelSensetivity->setRange(15, 70);
 
 /// AXIS QSPINBOXES
     ui->sb_axisLeftX->setReadOnly(true);
@@ -26,8 +30,6 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->sb_mousePosX->setRange(0, 1400);
     ui->sb_mousePosY->setRange(0, 800);
 
-    m_gamepad = new QGamepad;
-    m_sensetivity = 2;
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
 /// BIND GAMEPAD KEYS
@@ -39,6 +41,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::doubleClick);
 
     connect (ui->sl_moveSensetivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
+    connect (ui->sl_wheelSensetivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
 }
 
 GamepadDriver::~GamepadDriver()
@@ -56,8 +59,9 @@ void GamepadDriver::changeMousePos()
     double X = QCursor::pos().x();
     double Y = QCursor::pos().y();
 
-    for (int i = 1; i <= m_sensetivity; i++) {
-        QCursor::setPos(X + m_gamepad->axisLeftX() * m_sensetivity, Y + m_gamepad->axisLeftY() * m_sensetivity);
+    for (int i = 1; i <= 25; i++) {
+        QCursor::setPos(X + (m_gamepad->axisLeftX() * m_cursorSens)/5,
+                        Y + (m_gamepad->axisLeftY() * m_cursorSens)/5);
     }
 
     ui->sb_axisLeftX->setValue(m_gamepad->axisLeftX());
@@ -87,13 +91,15 @@ void GamepadDriver::doubleClick(bool pressSignal)
 
 void GamepadDriver::rotateMouseWheel()
 {
-    if (m_gamepad->axisRightY() > 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), -30, 0); }
-    if (m_gamepad->axisRightY() < 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), 30, 0); }
+    if (m_gamepad->axisRightY() > 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), -m_wheelSens, 0); }
+    if (m_gamepad->axisRightY() < 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(),  m_wheelSens, 0); }
 
     ui->sb_axisRightY->setValue(m_gamepad->axisRightY());
 }
 
-int GamepadDriver::changeSensetivity()
+void GamepadDriver::changeSensetivity(int sliderValue)
 {
-
+    QSlider* currentSlider = (QSlider*)sender();
+    if (currentSlider->objectName() == "sl_moveSensetivity" ) { m_cursorSens = sliderValue; }
+    if (currentSlider->objectName() == "sl_wheelSensetivity" ) { m_wheelSens = sliderValue; }
 }

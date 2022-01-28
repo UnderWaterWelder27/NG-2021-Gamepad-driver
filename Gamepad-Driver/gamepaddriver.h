@@ -42,11 +42,12 @@ public slots:
     void doubleClick(bool pressSignal);
     void rotateMouseWheel();
 
-    int changeSensetivity();
+    void changeSensetivity(int sliderValue);
 
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
-    int m_sensetivity;
+    int m_cursorSens;
+    int m_wheelSens;
 };
 #endif // GAMEPADDRIVER_H
