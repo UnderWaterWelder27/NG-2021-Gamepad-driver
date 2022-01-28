@@ -23,6 +23,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->sb_mousePosY->setRange(0, 800);
 
     m_gamepad = new QGamepad;
+    m_sensetivity = 2;
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
 /// BIND GAMEPAD KEYS
@@ -49,17 +50,13 @@ void GamepadDriver::changeMousePos()
 {
     double X = QCursor::pos().x();
     double Y = QCursor::pos().y();
-    double axisX = m_gamepad->axisLeftX();
-    double axisY = m_gamepad->axisLeftY();
 
-    QCursor::setPos(X + axisX*1.0, Y + axisY*1.0);
-    QCursor::setPos(X + axisX*3.0, Y + axisY*3.0);
-    QCursor::setPos(X + axisX*5.0, Y + axisY*5.0);
-    QCursor::setPos(X + axisX*7.0, Y + axisY*7.0);
-    QCursor::setPos(X + axisX*10.0, Y + axisY*10.0);
+    for (int i = 1; i <= m_sensetivity; i++) {
+        QCursor::setPos(X + m_gamepad->axisLeftX() * m_sensetivity, Y + m_gamepad->axisLeftY() * m_sensetivity);
+    }
 
-    ui->sb_axisLeftX->setValue(axisX);
-    ui->sb_axisLeftY->setValue(axisY);
+    ui->sb_axisLeftX->setValue(m_gamepad->axisLeftX());
+    ui->sb_axisLeftY->setValue(m_gamepad->axisLeftY());
 
     ui->sb_mousePosX->setValue(QCursor::pos().x());
     ui->sb_mousePosY->setValue(QCursor::pos().y());

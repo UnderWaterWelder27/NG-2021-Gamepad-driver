@@ -21,7 +21,6 @@ public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
 
-
     enum MouseEventFlags
     {
         LEFTDOWN = 0x0002,
@@ -45,5 +44,6 @@ public slots:
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
+    int m_sensetivity;
 };
 #endif // GAMEPADDRIVER_H
