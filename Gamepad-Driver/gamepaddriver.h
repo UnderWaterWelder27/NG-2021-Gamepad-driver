@@ -37,9 +37,8 @@ public slots:
     void changeConectionStatus();
 
     void changeMousePos();
-    void clickLeftMouseButton(bool pressSignal);
-    void clickRightMouseButton(bool pressSignal);
-    void doubleClick(bool pressSignal);
+    void simulateMouseButtonClick(bool pressSignal);
+    void simulateDoubleClick(bool pressSignal);
     void rotateMouseWheel();
 
     void changeSensetivity(int sliderValue);
@@ -49,5 +48,8 @@ private:
     QGamepad *m_gamepad;
     int m_cursorSens;
     int m_wheelSens;
+    int m_bPress;
+    int m_bRemove;
+
 };
 #endif // GAMEPADDRIVER_H
