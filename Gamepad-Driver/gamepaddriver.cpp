@@ -8,6 +8,10 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 {
     ui->setupUi(this);
 
+/// SENSETIVITY SLIDERS
+    ui->sl_moveSensetivity->setRange(2, 15);
+    ui->sl_wheelSensetivity->setRange(2, 15);
+
 /// AXIS QSPINBOXES
     ui->sb_axisLeftX->setReadOnly(true);
     ui->sb_axisLeftY->setReadOnly(true);
@@ -34,6 +38,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::clickRightMouseButton);
     connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::doubleClick);
 
+    connect (ui->sl_moveSensetivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
 }
 
 GamepadDriver::~GamepadDriver()
@@ -86,4 +91,9 @@ void GamepadDriver::rotateMouseWheel()
     if (m_gamepad->axisRightY() < 0) { mouse_event(WHEELROTATE, QCursor::pos().x(), QCursor::pos().y(), 30, 0); }
 
     ui->sb_axisRightY->setValue(m_gamepad->axisRightY());
+}
+
+int GamepadDriver::changeSensetivity()
+{
+
 }

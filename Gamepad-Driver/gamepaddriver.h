@@ -4,9 +4,9 @@
 #include <QMainWindow>
 #include <QObject>
 #include <QGamepad>
-#include <QDebug>
 #include <QCursor>
 #include <QSpinBox>
+#include <QSlider>
 #include <windows.h>
 
 QT_BEGIN_NAMESPACE
@@ -35,11 +35,14 @@ public:
 
 public slots:
     void changeConectionStatus();
+
     void changeMousePos();
     void clickLeftMouseButton(bool pressSignal);
     void clickRightMouseButton(bool pressSignal);
     void doubleClick(bool pressSignal);
     void rotateMouseWheel();
+
+    int changeSensetivity();
 
 private:
     Ui::GamepadDriver *ui;
