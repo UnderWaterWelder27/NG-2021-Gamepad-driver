@@ -13,8 +13,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     m_wheelSens = 15;
 
 /// SENSETIVITY SLIDERS
-    ui->sl_moveSensetivity->setRange(15, 70);
-    ui->sl_wheelSensetivity->setRange(15, 70);
+    ui->sl_moveSensitivity->setRange(15, 100);
+    ui->sl_wheelSensitivity->setRange(15, 70);
 
 /// AXIS QSPINBOXES
     ui->sb_axisLeftX->setReadOnly(true);
@@ -40,8 +40,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::clickRightMouseButton);
     connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::doubleClick);
 
-    connect (ui->sl_moveSensetivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
-    connect (ui->sl_wheelSensetivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
+    connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
+    connect (ui->sl_wheelSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
 }
 
 GamepadDriver::~GamepadDriver()
@@ -51,7 +51,8 @@ GamepadDriver::~GamepadDriver()
 
 void GamepadDriver::changeConectionStatus()
 {
-    ui->l_checkConnection->setText("Connected");
+    if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
+    else { ui->l_checkConnection->setText("Disconnected"); }
 }
 
 void GamepadDriver::changeMousePos()
@@ -100,6 +101,6 @@ void GamepadDriver::rotateMouseWheel()
 void GamepadDriver::changeSensetivity(int sliderValue)
 {
     QSlider* currentSlider = (QSlider*)sender();
-    if (currentSlider->objectName() == "sl_moveSensetivity" ) { m_cursorSens = sliderValue; }
-    if (currentSlider->objectName() == "sl_wheelSensetivity" ) { m_wheelSens = sliderValue; }
+    if (currentSlider->objectName() == "sl_moveSensitivity" ) { m_cursorSens = sliderValue; }
+    if (currentSlider->objectName() == "sl_wheelSensitivity" ) { m_wheelSens = sliderValue; }
 }

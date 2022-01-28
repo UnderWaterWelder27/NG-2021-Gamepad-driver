@@ -263,12 +263,12 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Movement sensetivity</string>
+                 <string>Movement sensitivity</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="sl_moveSensetivity">
+               <widget class="QSlider" name="sl_moveSensitivity">
                 <property name="minimumSize">
                  <size>
                   <width>300</width>
@@ -293,12 +293,12 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>Wheel sensetivity</string>
+                 <string>Wheel sensitivity</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QSlider" name="sl_wheelSensetivity">
+               <widget class="QSlider" name="sl_wheelSensitivity">
                 <property name="minimumSize">
                  <size>
                   <width>300</width>
