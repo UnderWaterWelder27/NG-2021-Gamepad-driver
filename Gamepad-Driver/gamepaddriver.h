@@ -41,7 +41,7 @@ public slots:
     void simulateDoubleClick(bool pressSignal);
     void rotateMouseWheel();
 
-    void changeSensetivity(int sliderValue);
+    void changeSensitivity(int sliderValue);
 
 private:
     Ui::GamepadDriver *ui;

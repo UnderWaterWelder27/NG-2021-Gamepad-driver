@@ -43,8 +43,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonR2Changed, this, &GamepadDriver::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::simulateDoubleClick);
 
-    connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
-    connect (ui->sl_wheelSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensetivity);
+    connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
+    connect (ui->sl_wheelSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
 }
 
 GamepadDriver::~GamepadDriver()
@@ -99,7 +99,7 @@ void GamepadDriver::rotateMouseWheel()
     ui->sb_axisRightY->setValue(m_gamepad->axisRightY());
 }
 
-void GamepadDriver::changeSensetivity(int sliderValue)
+void GamepadDriver::changeSensitivity(int sliderValue)
 {
     QSlider* currentSlider = (QSlider*)sender();
     if (currentSlider->objectName() == "sl_moveSensitivity" ) { m_cursorSens = sliderValue; }
