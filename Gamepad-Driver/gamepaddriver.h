@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QThread>
 #include <windows.h>
+#include "threadaxischange.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
@@ -38,7 +39,6 @@ public:
 public slots:
     void changeConectionStatus();
 
-    bool axisAngleChanged(double angleX, double angleY);
     void changeMousePos();
     void simulateMouseButtonClick(bool pressSignal);
     void simulateDoubleClick(bool pressSignal);
@@ -49,6 +49,7 @@ public slots:
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
+    ThreadAxisChange *m_axisThread;
 
     double m_prevAxisAngle;
 
