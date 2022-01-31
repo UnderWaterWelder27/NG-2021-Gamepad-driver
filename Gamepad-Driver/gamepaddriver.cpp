@@ -9,14 +9,11 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->setupUi(this);
 
     m_gamepad = new QGamepad;
-    m_axisThread = new ThreadAxisChange(m_gamepad, m_cursorSens);
 
-    m_prevAxisAngle = 0.000000;
-
-    m_cursorSens = 10;
+    m_cursorSens = 15;
     m_wheelSens = 15;
     m_bPress = 0;
-    m_bPress = 0;
+    m_bRemove = 0;
 
 /// SENSETIVITY SLIDERS
     ui->sl_moveSensitivity->setRange(15, 100);
@@ -64,12 +61,13 @@ void GamepadDriver::changeConectionStatus()
 
 void GamepadDriver::changeMousePos()
 {
-    //disconnect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
-    //disconnect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
+    int X = QCursor::pos().x();
+    int Y = QCursor::pos().y();
 
-    connect (m_axisThread, &ThreadAxisChange::gamepadLeftAxisX, this, &GamepadDriver::changeMousePos);
-    connect (m_axisThread, &ThreadAxisChange::gamepadLeftAxisX, this, &GamepadDriver::changeMousePos);
-
+    for (int i = 1; i <= 25; i++) {
+        QCursor::setPos(X + (m_gamepad->axisLeftX() * m_cursorSens)/5,
+                        Y + (m_gamepad->axisLeftY() * m_cursorSens)/5);
+    }
     ui->sb_axisLeftX->setValue(m_gamepad->axisLeftX());
     ui->sb_axisLeftY->setValue(m_gamepad->axisLeftY());
     ui->sb_mousePosX->setValue(QCursor::pos().x());
@@ -81,9 +79,6 @@ void GamepadDriver::changeMousePos()
     qDebug() << "axis x" << m_gamepad->axisLeftX();
     qDebug() << "change pos x" << (m_gamepad->axisLeftX() * m_cursorSens)/5;
     qDebug() << "change pos y" << (m_gamepad->axisLeftY() * m_cursorSens)/5;
-
-    //connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
-    //connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
 }
 
 void GamepadDriver::simulateMouseButtonClick(bool pressSignal)

@@ -14,13 +14,12 @@ class ThreadAxisChange : public QThread
     void run() override;
 
 public:
-    ThreadAxisChange(QGamepad* gamepad, int sens);
+    ThreadAxisChange(QGamepad* gamepad, double axisX, double axisY);
 
 private:
     QGamepad *m_gamepad;
     double m_axisXValue;
     double m_axisYValue;
-    int m_cursorSensetivity;
 
 signals:
     void gamepadLeftAxisX(double);

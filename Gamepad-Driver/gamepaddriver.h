@@ -43,20 +43,15 @@ public slots:
     void simulateMouseButtonClick(bool pressSignal);
     void simulateDoubleClick(bool pressSignal);
     void rotateMouseWheel();
-
     void changeSensitivity(int sliderValue);
 
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
-    ThreadAxisChange *m_axisThread;
-
-    double m_prevAxisAngle;
 
     int m_cursorSens;
     int m_wheelSens;
     int m_bPress;
     int m_bRemove;
-
 };
 #endif // GAMEPADDRIVER_H
