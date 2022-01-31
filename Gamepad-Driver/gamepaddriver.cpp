@@ -9,7 +9,10 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->setupUi(this);
 
     m_gamepad = new QGamepad;
-    m_cursorSens = 15;
+
+    m_prevAxisAngle = 0.000000;
+
+    m_cursorSens = 10;
     m_wheelSens = 15;
     m_bPress = 0;
     m_bPress = 0;
@@ -58,19 +61,49 @@ void GamepadDriver::changeConectionStatus()
     else { ui->l_checkConnection->setText("Disconnected"); }
 }
 
+bool GamepadDriver::axisAngleChanged(double angleX, double angleY)
+{
+    if (angleX != m_gamepad->axisLeftX() || angleY != m_gamepad->axisLeftY()) { qDebug() << "axis true"; return true; }
+
+    qDebug() << "axis false"; return false;
+}
+
 void GamepadDriver::changeMousePos()
 {
-    double X = QCursor::pos().x();
-    double Y = QCursor::pos().y();
+    double x = 0;
+    double y = 0;
+    disconnect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
+    disconnect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
 
-    for (int i = 1; i <= 25; i++) {
-        QCursor::setPos(X + (m_gamepad->axisLeftX() * m_cursorSens)/5,
-                        Y + (m_gamepad->axisLeftY() * m_cursorSens)/5);
-    }
+    do {
+        x = m_gamepad->axisLeftX();
+        y = m_gamepad->axisLeftY();
+
+        //for (int i = 1; i <= 25; i++) {
+            QCursor::setPos(QCursor::pos().x() + (x * m_cursorSens)/5,
+                            QCursor::pos().y() + (y * m_cursorSens)/5);
+        //}
+        QThread::msleep(100);
+        //connect (m_gamepad, &QGamepad::axisLeftXChanged, this, [=](){ this->axisAngleChanged(x, y); });
+        //connect (m_gamepad, &QGamepad::axisLeftYChanged, this, [=](){ this->axisAngleChanged(x, y); });
+
+        if (axisAngleChanged(x, y)) { break; }
+    } while (!(y < 0.2 && y > -0.2));
+
     ui->sb_axisLeftX->setValue(m_gamepad->axisLeftX());
     ui->sb_axisLeftY->setValue(m_gamepad->axisLeftY());
     ui->sb_mousePosX->setValue(QCursor::pos().x());
     ui->sb_mousePosY->setValue(QCursor::pos().y());
+
+    qDebug() << "cursor pos y" << QCursor::pos().y();
+    qDebug() << "cursor pos x" << QCursor::pos().x();
+    qDebug() << "axis y" << m_gamepad->axisLeftY();
+    qDebug() << "axis x" << m_gamepad->axisLeftX();
+    qDebug() << "change pos x" << (m_gamepad->axisLeftX() * m_cursorSens)/5;
+    qDebug() << "change pos y" << (m_gamepad->axisLeftY() * m_cursorSens)/5;
+
+    connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
+    connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
 }
 
 void GamepadDriver::simulateMouseButtonClick(bool pressSignal)

@@ -7,6 +7,8 @@
 #include <QCursor>
 #include <QSpinBox>
 #include <QSlider>
+#include <QDebug>
+#include <QThread>
 #include <windows.h>
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +38,7 @@ public:
 public slots:
     void changeConectionStatus();
 
+    bool axisAngleChanged(double angleX, double angleY);
     void changeMousePos();
     void simulateMouseButtonClick(bool pressSignal);
     void simulateDoubleClick(bool pressSignal);
@@ -46,6 +49,9 @@ public slots:
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
+
+    double m_prevAxisAngle;
+
     int m_cursorSens;
     int m_wheelSens;
     int m_bPress;
