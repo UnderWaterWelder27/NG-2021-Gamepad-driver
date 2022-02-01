@@ -80,7 +80,12 @@ GamepadDriver::~GamepadDriver()
 
 void GamepadDriver::closeEvent(QCloseEvent *event)
 {
-
+    if(this->isVisible()) {
+        event->ignore();
+        this->hide();
+        QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+        m_trayIcon->showMessage("Tray Program", "Program was hided" "click on tray icon to show proram window", icon, 2000);
+    }
 }
 
 void GamepadDriver::changeConectionStatus()
@@ -91,7 +96,10 @@ void GamepadDriver::changeConectionStatus()
 
 void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
-
+    if (reason == QSystemTrayIcon::Trigger) {
+        if (this->isVisible() == false) { this->show(); }
+        else { this->hide(); }
+    }
 }
 
 void GamepadDriver::changeMousePos()
