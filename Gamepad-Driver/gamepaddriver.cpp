@@ -61,33 +61,22 @@ void GamepadDriver::changeConectionStatus()
 
 void GamepadDriver::changeMousePos()
 {
-    int X = QCursor::pos().x();
-    int Y = QCursor::pos().y();
+    mouse_event(MOVE, (m_gamepad->axisLeftX() * m_cursorSens)/7, 0, 0, 0);
+    mouse_event(MOVE, 0, (m_gamepad->axisLeftY() * m_cursorSens)/7, 0, 0);
 
-    for (int i = 1; i <= 25; i++) {
-        QCursor::setPos(X + (m_gamepad->axisLeftX() * m_cursorSens)/5,
-                        Y + (m_gamepad->axisLeftY() * m_cursorSens)/5);
-    }
     ui->sb_axisLeftX->setValue(m_gamepad->axisLeftX());
     ui->sb_axisLeftY->setValue(m_gamepad->axisLeftY());
     ui->sb_mousePosX->setValue(QCursor::pos().x());
     ui->sb_mousePosY->setValue(QCursor::pos().y());
-
-    qDebug() << "cursor pos y" << QCursor::pos().y();
-    qDebug() << "cursor pos x" << QCursor::pos().x();
-    qDebug() << "axis y" << m_gamepad->axisLeftY();
-    qDebug() << "axis x" << m_gamepad->axisLeftX();
-    qDebug() << "change pos x" << (m_gamepad->axisLeftX() * m_cursorSens)/5;
-    qDebug() << "change pos y" << (m_gamepad->axisLeftY() * m_cursorSens)/5;
 }
 
 void GamepadDriver::simulateMouseButtonClick(bool pressSignal)
 {
     QGamepad* button = (QGamepad*)sender();
 
-    if (button->buttonL1()) { m_bPress = 2; m_bRemove = 4; }
-    if (button->buttonR1()) { m_bPress = 8; m_bRemove = 16; }
-    if (button->buttonR2()) { m_bPress = 32; m_bRemove = 64; }
+    if (button->buttonL1()) { m_bPress = LEFTDOWN; m_bRemove = LEFTUP; }
+    if (button->buttonR1()) { m_bPress = RIGHTDOWN; m_bRemove = RIGHTUP; }
+    if (button->buttonR2()) { m_bPress = MIDDLEDOWN; m_bRemove = MIDDLEUP; }
 
     if (pressSignal == true)    { mouse_event(m_bPress, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
     else                        { mouse_event(m_bRemove, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }

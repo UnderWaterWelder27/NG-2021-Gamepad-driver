@@ -26,12 +26,12 @@ public:
 
     enum MouseEventFlags
     {
-        LEFTDOWN = 0x0002,
-        LEFTUP = 0x0004,
-        RIGHTDOWN = 0x0008,
-        RIGHTUP = 0x0010,
-        MIDDLEDOWN = 0x0020,
-        MIDDLEUP = 0x0040,
+        LEFTDOWN = 2,
+        LEFTUP = 4,
+        RIGHTDOWN = 8,
+        RIGHTUP = 16,
+        MIDDLEDOWN = 32,
+        MIDDLEUP = 64,
         WHEELROTATE = 0x0800,
         MOVE = 0x0001
     };
