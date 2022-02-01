@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QThread>
 
+#include <QMenu>
 #include <QCloseEvent>
 #include <QSystemTrayIcon>
 #include <QAction>

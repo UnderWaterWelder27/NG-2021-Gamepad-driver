@@ -8,6 +8,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 {
     ui->setupUi(this);
 
+/// SYSTEM TRAY ICON CONFIGURATION
     m_trayIcon = new QSystemTrayIcon(this);
     m_gamepad = new QGamepad;
     m_cursorEvent = new MouseCursorEvents;
@@ -16,6 +17,16 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     this->setWindowIcon(QIcon(":/tmp/gamepad-icon.png"));
     m_trayIcon->setIcon(QIcon(":/tmp/gamepad-icon.png"));
 
+    QMenu *trayMenu = new QMenu(this);
+    QAction *showProgramWindow = new QAction("View window", this);
+    QAction *quitProgram = new QAction("Exit", this);
+
+    trayMenu->addAction(showProgramWindow);
+    trayMenu->addAction(quitProgram);
+    m_trayIcon->setContextMenu(trayMenu);
+    m_trayIcon->show();
+
+/// PRIVATE VARIABLES
     m_cursorSens = 15;
     m_wheelSens = 15;
     m_bPress = 0;
@@ -39,9 +50,16 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->sb_mousePosX->setRange(0, 1400);
     ui->sb_mousePosY->setRange(0, 800);
 
+/// CONNECT TRAY MENU EVENTS
+    connect (showProgramWindow, &QAction::triggered, this, &QWidget::showNormal);
+    connect (quitProgram, &QAction::triggered, this, &QCoreApplication::quit);
+    connect (m_trayIcon, &QSystemTrayIcon::activated, this, &GamepadDriver::trayIconClicked);
+
+
+/// CHECK GAMEPAD CONNECTION
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
-/// BIND GAMEPAD KEYS
+/// CONNECT GAMEPAD KEYS
     connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisRightYChanged, this, &GamepadDriver::rotateMouseWheel);
@@ -50,6 +68,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonR2Changed, this, &GamepadDriver::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonYChanged , this, &GamepadDriver::simulateDoubleClick);
 
+/// CONNECT SENSITIVITY SLIDERS
     connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
     connect (ui->sl_wheelSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
 }
