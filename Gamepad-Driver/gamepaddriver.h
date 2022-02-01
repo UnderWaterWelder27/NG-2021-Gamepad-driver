@@ -1,6 +1,9 @@
 #ifndef GAMEPADDRIVER_H
 #define GAMEPADDRIVER_H
 
+#include "threadaxischange.h"
+#include "mousecursorevents.h"
+
 #include <QMainWindow>
 #include <QObject>
 #include <QGamepad>
@@ -10,7 +13,7 @@
 #include <QDebug>
 #include <QThread>
 #include <windows.h>
-#include "threadaxischange.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
@@ -24,18 +27,6 @@ public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
 
-    enum MouseEventFlags
-    {
-        LEFTDOWN = 2,
-        LEFTUP = 4,
-        RIGHTDOWN = 8,
-        RIGHTUP = 16,
-        MIDDLEDOWN = 32,
-        MIDDLEUP = 64,
-        WHEELROTATE = 0x0800,
-        MOVE = 0x0001
-    };
-
 public slots:
     void changeConectionStatus();
 
@@ -48,6 +39,7 @@ public slots:
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
+    MouseCursorEvents *m_cursorEvent;
 
     int m_cursorSens;
     int m_wheelSens;
