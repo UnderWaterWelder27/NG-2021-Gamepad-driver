@@ -54,7 +54,6 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (quitProgram, &QAction::triggered, this, &QCoreApplication::quit);
     connect (m_trayIcon, &QSystemTrayIcon::activated, this, &GamepadDriver::trayIconClicked);
 
-
 /// CHECK GAMEPAD CONNECTION
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
@@ -79,7 +78,7 @@ GamepadDriver::~GamepadDriver()
 
 void GamepadDriver::closeEvent(QCloseEvent *event)
 {
-    if(this->isVisible()) {
+    if (this->isVisible()) {
         event->ignore();
         this->hide();
         m_trayIcon->show();

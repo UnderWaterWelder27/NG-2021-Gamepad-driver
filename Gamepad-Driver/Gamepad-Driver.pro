@@ -12,13 +12,11 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     gamepaddriver.cpp \
-    mousecursorevents.cpp \
-    threadaxischange.cpp
+    mousecursorevents.cpp
 
 HEADERS += \
     gamepaddriver.h \
-    mousecursorevents.h \
-    threadaxischange.h
+    mousecursorevents.h
 
 FORMS += \
     gamepaddriver.ui

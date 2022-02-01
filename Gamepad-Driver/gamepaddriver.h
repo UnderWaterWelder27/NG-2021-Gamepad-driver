@@ -1,7 +1,6 @@
 #ifndef GAMEPADDRIVER_H
 #define GAMEPADDRIVER_H
 
-#include "threadaxischange.h"
 #include "mousecursorevents.h"
 
 #include <QMainWindow>
