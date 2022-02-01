@@ -24,7 +24,6 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     trayMenu->addAction(showProgramWindow);
     trayMenu->addAction(quitProgram);
     m_trayIcon->setContextMenu(trayMenu);
-    m_trayIcon->show();
 
 /// PRIVATE VARIABLES
     m_cursorSens = 15;
@@ -83,8 +82,7 @@ void GamepadDriver::closeEvent(QCloseEvent *event)
     if(this->isVisible()) {
         event->ignore();
         this->hide();
-        QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-        m_trayIcon->showMessage("Tray Program", "Program was hided" "click on tray icon to show proram window", icon, 2000);
+        m_trayIcon->show();
     }
 }
 
@@ -97,8 +95,8 @@ void GamepadDriver::changeConectionStatus()
 void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger) {
-        if (this->isVisible() == false) { this->show(); }
-        else { this->hide(); }
+        if (this->isVisible() == false) { this->show(); m_trayIcon->hide(); }
+        else { this->hide(); m_trayIcon->show(); }
     }
 }
 
