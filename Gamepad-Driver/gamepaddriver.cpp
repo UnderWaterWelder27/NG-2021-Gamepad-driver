@@ -13,7 +13,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     m_gamepad = new QGamepad;
     m_cursorEvent = new MouseCursorEvents;
 
-    this->setWindowFlags(Qt::CustomizeWindowHint);
+    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setWindowTitle("XBox Gamepad Driver");
     this->setWindowIcon(QIcon(":/tmp/gamepad-icon.png"));
     m_trayIcon->setIcon(QIcon(":/tmp/gamepad-icon.png"));
