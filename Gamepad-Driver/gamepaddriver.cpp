@@ -42,7 +42,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonR2Changed, this, &GamepadDriver::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonL2Changed, this, &GamepadDriver::simulateDoubleClick);
+    connect (m_gamepad, &QGamepad::buttonYChanged , this, &GamepadDriver::simulateDoubleClick);
 
     connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
     connect (ui->sl_wheelSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
@@ -84,8 +84,11 @@ void GamepadDriver::simulateMouseButtonClick(bool pressSignal)
 
 void GamepadDriver::simulateDoubleClick(bool pressSignal)
 {
-    if (pressSignal == true)    { mouse_event(LEFTDOWN, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
-                                  mouse_event(LEFTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0);
+    if (pressSignal == false) { return; }
+    else {
+        mouse_event(LEFTDOWN | LEFTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0);
+        mouse_event(LEFTDOWN | LEFTUP, QCursor::pos().x(), QCursor::pos().y(), 0, 0);
+    }
 }
 
 void GamepadDriver::rotateMouseWheel()
