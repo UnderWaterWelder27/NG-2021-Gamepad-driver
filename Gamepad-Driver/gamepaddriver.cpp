@@ -8,8 +8,13 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 {
     ui->setupUi(this);
 
+    m_trayIcon = new QSystemTrayIcon(this);
     m_gamepad = new QGamepad;
     m_cursorEvent = new MouseCursorEvents;
+
+    this->setWindowTitle("XBox Gamepad Driver");
+    this->setWindowIcon(QIcon(":/tmp/gamepad-icon.png"));
+    m_trayIcon->setIcon(QIcon(":/tmp/gamepad-icon.png"));
 
     m_cursorSens = 15;
     m_wheelSens = 15;
@@ -54,10 +59,20 @@ GamepadDriver::~GamepadDriver()
     delete ui;
 }
 
+void GamepadDriver::closeEvent(QCloseEvent *event)
+{
+
+}
+
 void GamepadDriver::changeConectionStatus()
 {
     if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
     else { ui->l_checkConnection->setText("Disconnected"); }
+}
+
+void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
+{
+
 }
 
 void GamepadDriver::changeMousePos()

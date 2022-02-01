@@ -5,8 +5,6 @@
 #include <QGamepad>
 #include <QCursor>
 #include <QSpinBox>
-#include <QSlider>
-#include <QDebug>
 #include <windows.h>
 
 class MouseCursorEvents : public QObject

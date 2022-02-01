@@ -12,6 +12,11 @@
 #include <QSlider>
 #include <QDebug>
 #include <QThread>
+
+#include <QCloseEvent>
+#include <QSystemTrayIcon>
+#include <QAction>
+
 #include <windows.h>
 
 
@@ -27,8 +32,12 @@ public:
     GamepadDriver(QWidget *parent = nullptr);
     ~GamepadDriver();
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 public slots:
     void changeConectionStatus();
+    void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
     void changeMousePos();
     void simulateMouseButtonClick(bool pressSignal);
@@ -40,6 +49,7 @@ private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
     MouseCursorEvents *m_cursorEvent;
+    QSystemTrayIcon *m_trayIcon;
 
     int m_cursorSens;
     int m_wheelSens;
