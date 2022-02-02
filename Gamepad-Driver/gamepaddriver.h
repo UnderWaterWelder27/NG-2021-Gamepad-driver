@@ -33,9 +33,10 @@ public:
     ~GamepadDriver();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+
 
 public slots:
+    void windowCloseHide();
     void changeConectionStatus();
     void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 

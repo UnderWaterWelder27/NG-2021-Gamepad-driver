@@ -13,7 +13,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     m_gamepad = new QGamepad;
     m_cursorEvent = new MouseCursorEvents;
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlags(Qt::CustomizeWindowHint);
     this->setWindowTitle("XBox Gamepad Driver");
     this->setWindowIcon(QIcon(":/tmp/gamepad-icon.png"));
     m_trayIcon->setIcon(QIcon(":/tmp/gamepad-icon.png"));
@@ -25,6 +25,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     trayMenu->addAction(showProgramWindow);
     trayMenu->addAction(quitProgram);
     m_trayIcon->setContextMenu(trayMenu);
+    m_trayIcon->show();
+    m_trayIcon->setToolTip("XBox gamepad driver");
 
 /// PRIVATE VARIABLES
     m_cursorSens = 15;
@@ -55,6 +57,11 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (quitProgram, &QAction::triggered, this, &QCoreApplication::quit);
     connect (m_trayIcon, &QSystemTrayIcon::activated, this, &GamepadDriver::trayIconClicked);
 
+/// CONNECT WINDOW CLOSE/HIDE BUTTONS
+    connect (ui->b_closeWindow, &QPushButton::clicked, this, &GamepadDriver::windowCloseHide);
+    connect (ui->b_hideWindow, &QPushButton::clicked, this, &GamepadDriver::windowCloseHide);
+    connect (ui->b_fullWindow, &QPushButton::clicked, this, &GamepadDriver::windowCloseHide);
+
 /// CHECK GAMEPAD CONNECTION
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
@@ -77,12 +84,21 @@ GamepadDriver::~GamepadDriver()
     delete ui;
 }
 
-void GamepadDriver::closeEvent(QCloseEvent *event)
+void GamepadDriver::windowCloseHide()
 {
-    if (this->isVisible()) {
-        event->ignore();
+    QPushButton *button = (QPushButton*)sender();
+
+    if (button->text() == "X" && this->isVisible()) {
         this->hide();
         m_trayIcon->show();
+    }
+    if (button->text() == "__") {
+        if (this->isVisible()) { this->showMinimized(); }
+        else { this->showMaximized(); }
+    }
+    if (button->text() == "[ ]") {
+        if (this->isMaximized()) { this->showNormal(); }
+        else { this->showMaximized(); }
     }
 }
 
@@ -95,7 +111,7 @@ void GamepadDriver::changeConectionStatus()
 void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger) {
-        if (this->isVisible() == false) { this->show(); m_trayIcon->hide(); }
+        if (this->isVisible() == false) { this->show(); }
         else { this->hide(); m_trayIcon->show(); }
     }
 }
