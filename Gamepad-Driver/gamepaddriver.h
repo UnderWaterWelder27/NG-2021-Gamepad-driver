@@ -17,6 +17,9 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 
+#include <QPoint>
+#include <QWidget>
+
 #include <windows.h>
 
 
@@ -33,7 +36,8 @@ public:
     ~GamepadDriver();
 
 protected:
-
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 
 public slots:
     void windowCloseHide();
@@ -56,5 +60,7 @@ private:
     int m_wheelSens;
     int m_bPress;
     int m_bRemove;
+
+    QPoint cursorPressPos;
 };
 #endif // GAMEPADDRIVER_H

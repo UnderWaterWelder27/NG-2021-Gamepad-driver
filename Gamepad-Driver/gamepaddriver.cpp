@@ -84,6 +84,21 @@ GamepadDriver::~GamepadDriver()
     delete ui;
 }
 
+void GamepadDriver::mousePressEvent(QMouseEvent *event)
+{
+    cursorPressPos = event->pos();
+    QWidget::mousePressEvent(event);
+}
+
+void GamepadDriver::mouseMoveEvent(QMouseEvent *event)
+{
+    QPoint addToPos = event->pos() - cursorPressPos;
+    QWidget *programWindow = window();
+    if (programWindow)
+        programWindow->move(programWindow->pos() + addToPos);
+    QWidget::mouseMoveEvent(event);
+}
+
 void GamepadDriver::windowCloseHide()
 {
     QPushButton *button = (QPushButton*)sender();
