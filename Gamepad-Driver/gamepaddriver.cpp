@@ -47,8 +47,8 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 /// CURSOR QSPINBOXES
     ui->sb_mousePosX->setReadOnly(true);
     ui->sb_mousePosY->setReadOnly(true);
-    ui->sb_mousePosX->setRange(0, 1400);
-    ui->sb_mousePosY->setRange(0, 800);
+    ui->sb_mousePosX->setRange(0, 8192);
+    ui->sb_mousePosY->setRange(0, 8192);
 
 /// CONNECT TRAY MENU EVENTS
     connect (showProgramWindow, &QAction::triggered, this, &QWidget::showNormal);
@@ -77,7 +77,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     });
     connect (m_gamepad, &QGamepad::buttonL1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonR1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonR2Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
+    connect (m_gamepad, &QGamepad::buttonAChanged, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonYChanged , m_cursorEvent, &MouseCursorEvents::simulateDoubleClick);
 
 /// CONNECT SENSITIVITY SLIDERS

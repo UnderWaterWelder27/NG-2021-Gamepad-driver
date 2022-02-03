@@ -26,7 +26,7 @@ void MouseCursorEvents::simulateMouseButtonClick()
 
     if (button->buttonL1()) { bClicked = button->buttonL1(); m_bPress = LEFTDOWN; m_bRemove = LEFTUP; }
     if (button->buttonR1()) { bClicked = button->buttonR1(); m_bPress = RIGHTDOWN; m_bRemove = RIGHTUP; }
-    if (button->buttonR2()) { bClicked = button->buttonR2(); m_bPress = MIDDLEDOWN; m_bRemove = MIDDLEUP; }
+    if (button->buttonA()) { bClicked = button->buttonA(); m_bPress = MIDDLEDOWN; m_bRemove = MIDDLEUP; }
 
     if (bClicked == true)    { mouse_event(m_bPress, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
     else                     { mouse_event(m_bRemove, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }

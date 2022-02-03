@@ -9,7 +9,6 @@
 #include <QCursor>
 #include <QSpinBox>
 #include <QSlider>
-#include <QThread>
 #include <QDebug>
 
 #include <QEvent>
