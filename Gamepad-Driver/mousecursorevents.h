@@ -28,8 +28,13 @@ public:
 
     void changeMousePos(double axisX, double axisY, int sens,
                         QDoubleSpinBox *axisLeftX, QDoubleSpinBox *axisLeftY, QSpinBox *mousePosX, QSpinBox *mousePosY);
+    void simulateMouseButtonClick();
     void simulateDoubleClick();
     void rotateMouseWheel(double axisY, int sens, QDoubleSpinBox *axisRightY);
+
+private:
+    int m_bPress;
+    int m_bRemove;
 };
 
 #endif // MOUSECURSOREVENTS_H

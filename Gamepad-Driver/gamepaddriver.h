@@ -9,14 +9,14 @@
 #include <QCursor>
 #include <QSpinBox>
 #include <QSlider>
-#include <QDebug>
 #include <QThread>
+#include <QDebug>
 
+#include <QEvent>
 #include <QMenu>
-#include <QCloseEvent>
 #include <QSystemTrayIcon>
+#include <QCloseEvent>
 #include <QAction>
-
 #include <QPoint>
 #include <QWidget>
 
@@ -41,11 +41,10 @@ protected:
 
 public slots:
     void windowCloseHide();
-    void changeConectionStatus();
     void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
+    void changeConectionStatus();
     void changeMousePos();
-    void simulateMouseButtonClick(bool pressSignal);
     void simulateDoubleClick(bool pressSignal);
     void rotateMouseWheel();
     void changeSensitivity(int sliderValue);
@@ -56,11 +55,8 @@ private:
     MouseCursorEvents *m_cursorEvent;
     QSystemTrayIcon *m_trayIcon;
 
-    int m_cursorSens;
-    int m_wheelSens;
-    int m_bPress;
-    int m_bRemove;
-
     QPoint cursorPressPos;
+    int m_cursorSens;
+    int m_wheelSens; 
 };
 #endif // GAMEPADDRIVER_H

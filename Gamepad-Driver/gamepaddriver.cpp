@@ -31,8 +31,6 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 /// PRIVATE VARIABLES
     m_cursorSens = 15;
     m_wheelSens = 15;
-    m_bPress = 0;
-    m_bRemove = 0;
 
 /// SENSETIVITY SLIDERS
     ui->sl_moveSensitivity->setRange(15, 100);
@@ -69,9 +67,9 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
     connect (m_gamepad, &QGamepad::axisRightYChanged, this, &GamepadDriver::rotateMouseWheel);
-    connect (m_gamepad, &QGamepad::buttonL1Changed, this, &GamepadDriver::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonR1Changed, this, &GamepadDriver::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonR2Changed, this, &GamepadDriver::simulateMouseButtonClick);
+    connect (m_gamepad, &QGamepad::buttonL1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
+    connect (m_gamepad, &QGamepad::buttonR1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
+    connect (m_gamepad, &QGamepad::buttonR2Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonYChanged , this, &GamepadDriver::simulateDoubleClick);
 
 /// CONNECT SENSITIVITY SLIDERS
@@ -117,12 +115,6 @@ void GamepadDriver::windowCloseHide()
     }
 }
 
-void GamepadDriver::changeConectionStatus()
-{
-    if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
-    else { ui->l_checkConnection->setText("Disconnected"); }
-}
-
 void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger) {
@@ -131,21 +123,16 @@ void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
+void GamepadDriver::changeConectionStatus()
+{
+    if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
+    else { ui->l_checkConnection->setText("Disconnected"); }
+}
+
 void GamepadDriver::changeMousePos()
 {
     m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
                                   ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
-}
-
-void GamepadDriver::simulateMouseButtonClick(bool pressSignal)
-{
-    QGamepad* button = (QGamepad*)sender();
-    if (button->buttonL1()) { m_bPress = 2; m_bRemove = 4; }
-    if (button->buttonR1()) { m_bPress = 8; m_bRemove = 16; }
-    if (button->buttonR2()) { m_bPress = 32; m_bRemove = 64; }
-
-    if (pressSignal)    { mouse_event(m_bPress, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
-    else                { mouse_event(m_bRemove, QCursor::pos().x(), QCursor::pos().y(), 0, 0); }
 }
 
 void GamepadDriver::simulateDoubleClick(bool pressSignal)
