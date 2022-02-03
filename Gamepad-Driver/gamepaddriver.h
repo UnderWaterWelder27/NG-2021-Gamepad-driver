@@ -44,16 +44,13 @@ public slots:
     void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
     void changeConectionStatus();
-    void changeMousePos();
-    void simulateDoubleClick(bool pressSignal);
-    void rotateMouseWheel();
     void changeSensitivity(int sliderValue);
 
 private:
     Ui::GamepadDriver *ui;
     QGamepad *m_gamepad;
-    MouseCursorEvents *m_cursorEvent;
     QSystemTrayIcon *m_trayIcon;
+    MouseCursorEvents *m_cursorEvent;
 
     QPoint cursorPressPos;
     int m_cursorSens;

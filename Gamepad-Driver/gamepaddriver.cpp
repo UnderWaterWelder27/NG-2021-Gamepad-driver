@@ -64,13 +64,21 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
 
 /// CONNECT GAMEPAD KEYS
-    connect (m_gamepad, &QGamepad::axisLeftXChanged, this, &GamepadDriver::changeMousePos);
-    connect (m_gamepad, &QGamepad::axisLeftYChanged, this, &GamepadDriver::changeMousePos);
-    connect (m_gamepad, &QGamepad::axisRightYChanged, this, &GamepadDriver::rotateMouseWheel);
+    connect (m_gamepad, &QGamepad::axisLeftXChanged, m_cursorEvent, [=]() {
+        m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
+                                      ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
+    });
+    connect (m_gamepad, &QGamepad::axisLeftYChanged, m_cursorEvent, [=]() {
+        m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
+                                      ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
+    });
+    connect (m_gamepad, &QGamepad::axisRightYChanged, m_cursorEvent, [=]() {
+        m_cursorEvent->rotateMouseWheel(m_gamepad->axisRightY(), m_wheelSens, ui->sb_axisRightY);
+    });
     connect (m_gamepad, &QGamepad::buttonL1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonR1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
     connect (m_gamepad, &QGamepad::buttonR2Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonYChanged , this, &GamepadDriver::simulateDoubleClick);
+    connect (m_gamepad, &QGamepad::buttonYChanged , m_cursorEvent, &MouseCursorEvents::simulateDoubleClick);
 
 /// CONNECT SENSITIVITY SLIDERS
     connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);
@@ -127,23 +135,6 @@ void GamepadDriver::changeConectionStatus()
 {
     if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
     else { ui->l_checkConnection->setText("Disconnected"); }
-}
-
-void GamepadDriver::changeMousePos()
-{
-    m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
-                                  ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
-}
-
-void GamepadDriver::simulateDoubleClick(bool pressSignal)
-{
-    if (pressSignal == false) { return; }
-    m_cursorEvent->simulateDoubleClick();
-}
-
-void GamepadDriver::rotateMouseWheel()
-{
-    m_cursorEvent->rotateMouseWheel(m_gamepad->axisRightY(), m_wheelSens, ui->sb_axisRightY);
 }
 
 void GamepadDriver::changeSensitivity(int sliderValue)

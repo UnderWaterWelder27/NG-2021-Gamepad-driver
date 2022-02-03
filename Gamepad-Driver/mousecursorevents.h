@@ -27,7 +27,8 @@ public:
     };
 
     void changeMousePos(double axisX, double axisY, int sens,
-                        QDoubleSpinBox *axisLeftX, QDoubleSpinBox *axisLeftY, QSpinBox *mousePosX, QSpinBox *mousePosY);
+                        QDoubleSpinBox *axisLeftX, QDoubleSpinBox *axisLeftY,
+                        QSpinBox *mousePosX, QSpinBox *mousePosY);
     void simulateMouseButtonClick();
     void simulateDoubleClick();
     void rotateMouseWheel(double axisY, int sens, QDoubleSpinBox *axisRightY);
