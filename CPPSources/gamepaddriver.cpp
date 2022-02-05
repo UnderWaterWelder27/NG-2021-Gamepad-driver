@@ -44,12 +44,6 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     ui->sb_axisLeftY->setRange(-1.00, 1.00);
     ui->sb_axisRightY->setRange(-1.00, 1.00);
 
-/// CURSOR QSPINBOXES
-    ui->sb_mousePosX->setReadOnly(true);
-    ui->sb_mousePosY->setReadOnly(true);
-    ui->sb_mousePosX->setRange(0, 8192);
-    ui->sb_mousePosY->setRange(0, 8192);
-
 /// CONNECT TRAY MENU EVENTS
     connect (showProgramWindow, &QAction::triggered, this, &QWidget::showNormal);
     connect (quitProgram, &QAction::triggered, this, &QCoreApplication::quit);
@@ -66,19 +60,27 @@ GamepadDriver::GamepadDriver(QWidget *parent)
 /// CONNECT GAMEPAD KEYS
     connect (m_gamepad, &QGamepad::axisLeftXChanged, m_cursorEvent, [=]() {
         m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
-                                      ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
+                                      ui->sb_axisLeftX, ui->sb_axisLeftY);
     });
     connect (m_gamepad, &QGamepad::axisLeftYChanged, m_cursorEvent, [=]() {
         m_cursorEvent->changeMousePos(m_gamepad->axisLeftX(), m_gamepad->axisLeftY(), m_cursorSens,
-                                      ui->sb_axisLeftX, ui->sb_axisLeftY, ui->sb_mousePosX, ui->sb_mousePosY);
+                                      ui->sb_axisLeftX, ui->sb_axisLeftY);
     });
     connect (m_gamepad, &QGamepad::axisRightYChanged, m_cursorEvent, [=]() {
         m_cursorEvent->rotateMouseWheel(m_gamepad->axisRightY(), m_wheelSens, ui->sb_axisRightY);
     });
-    connect (m_gamepad, &QGamepad::buttonL1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonR1Changed, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonAChanged, m_cursorEvent, &MouseCursorEvents::simulateMouseButtonClick);
-    connect (m_gamepad, &QGamepad::buttonYChanged , m_cursorEvent, &MouseCursorEvents::simulateDoubleClick);
+    connect (m_gamepad, &QGamepad::buttonL1Changed, m_cursorEvent, [=]() {
+        m_cursorEvent->simulateMouseButtonClick(ui->l_LB, ui->l_RB, ui->l_A);
+    });
+    connect (m_gamepad, &QGamepad::buttonR1Changed, m_cursorEvent, [=]() {
+        m_cursorEvent->simulateMouseButtonClick(ui->l_LB, ui->l_RB, ui->l_A);
+    });
+    connect (m_gamepad, &QGamepad::buttonAChanged, m_cursorEvent, [=]() {
+        m_cursorEvent->simulateMouseButtonClick(ui->l_LB, ui->l_RB, ui->l_A);
+    });
+    connect (m_gamepad, &QGamepad::buttonYChanged , m_cursorEvent, [=]() {
+        m_cursorEvent->simulateDoubleClick(ui->l_Y);
+    });
 
 /// CONNECT SENSITIVITY SLIDERS
     connect (ui->sl_moveSensitivity, &QSlider::valueChanged, this, &GamepadDriver::changeSensitivity);

@@ -21,7 +21,6 @@
 
 #include <windows.h>
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class GamepadDriver; }
 QT_END_NAMESPACE

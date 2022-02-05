@@ -469,132 +469,6 @@ color: rgb(255, 255, 255);</string>
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="l_mousePosX">
-              <property name="minimumSize">
-               <size>
-                <width>140</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <italic>false</italic>
-                <bold>true</bold>
-                <underline>false</underline>
-                <kerning>true</kerning>
-               </font>
-              </property>
-              <property name="mouseTracking">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 34);
-color: rgb(255, 255, 255);</string>
-              </property>
-              <property name="text">
-               <string>Mouse position X</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="sb_mousePosX">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">border: 0px;
-background-color: rgb(31, 32, 33);
-color: rgb(255, 255, 255);</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="l_mousePosY">
-              <property name="minimumSize">
-               <size>
-                <width>140</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <italic>false</italic>
-                <bold>true</bold>
-                <underline>false</underline>
-                <kerning>true</kerning>
-               </font>
-              </property>
-              <property name="mouseTracking">
-               <bool>false</bool>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(32, 33, 34);
-color: rgb(255, 255, 255);</string>
-              </property>
-              <property name="text">
-               <string>Mouse position Y</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="sb_mousePosY">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="styleSheet">
-               <string>border: 0px;
-background-color: rgb(31, 32, 33);
-color: rgb(255, 255, 255);</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <item>
              <widget class="QLabel" name="l_RightAxisY">
               <property name="minimumSize">
                <size>
@@ -647,6 +521,136 @@ color: rgb(255, 255, 255);</string>
                <string notr="true">border: 0px;
 background-color: rgb(31, 32, 33);
 color: rgb(255, 255, 255);</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="l_LB">
+              <property name="minimumSize">
+               <size>
+                <width>140</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+                <underline>false</underline>
+                <kerning>true</kerning>
+               </font>
+              </property>
+              <property name="mouseTracking">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(32, 33, 34);
+color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>LB</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="l_RB">
+              <property name="minimumSize">
+               <size>
+                <width>140</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <italic>false</italic>
+                <bold>true</bold>
+                <underline>false</underline>
+                <kerning>true</kerning>
+               </font>
+              </property>
+              <property name="mouseTracking">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(32, 33, 34);
+color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>RB</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="l_Y">
+              <property name="minimumSize">
+               <size>
+                <width>140</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(32, 33, 34);
+color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>Y</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="l_A">
+              <property name="minimumSize">
+               <size>
+                <width>140</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(32, 33, 34);
+color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>A</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>

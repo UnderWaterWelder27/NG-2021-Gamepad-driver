@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGamepad>
 #include <QCursor>
+#include <QLabel>
 #include <QSpinBox>
 #include <windows.h>
 
@@ -27,10 +28,9 @@ public:
     };
 
     void changeMousePos(double axisX, double axisY, int sens,
-                        QDoubleSpinBox *axisLeftX, QDoubleSpinBox *axisLeftY,
-                        QSpinBox *mousePosX, QSpinBox *mousePosY);
-    void simulateMouseButtonClick();
-    void simulateDoubleClick();
+                        QDoubleSpinBox *axisLeftX, QDoubleSpinBox *axisLeftY);
+    void simulateMouseButtonClick(QLabel *LB, QLabel *RB, QLabel *A);
+    void simulateDoubleClick(QLabel *Y);
     void rotateMouseWheel(double axisY, int sens, QDoubleSpinBox *axisRightY);
 
 private:
