@@ -11,8 +11,8 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    CPPSource\gamepaddriver.cpp \
-    CPPSource\mousecursorevents.cpp
+    CPPSources\gamepaddriver.cpp \
+    CPPSources\mousecursorevents.cpp
 
 HEADERS += \
     Headers\gamepaddriver.h \
