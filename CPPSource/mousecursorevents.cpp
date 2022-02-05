@@ -1,4 +1,4 @@
-#include "mousecursorevents.h"
+#include "Headers/mousecursorevents.h"
 
 MouseCursorEvents::MouseCursorEvents()
 {

@@ -1,4 +1,4 @@
-#include "gamepaddriver.h"
+#include "Headers/gamepaddriver.h"
 #include "ui_gamepaddriver.h"
 
 GamepadDriver::GamepadDriver(QWidget *parent)
@@ -26,7 +26,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     trayMenu->addAction(quitProgram);
     m_trayIcon->setContextMenu(trayMenu);
     m_trayIcon->show();
-    m_trayIcon->setToolTip("XBox gamepad driver");
+    m_trayIcon->setToolTip("XBox Gamepad Driver");
 
 /// PRIVATE VARIABLES
     m_cursorSens = 15;
@@ -61,7 +61,7 @@ GamepadDriver::GamepadDriver(QWidget *parent)
     connect (ui->b_fullWindow, &QPushButton::clicked, this, &GamepadDriver::windowCloseHide);
 
 /// CHECK GAMEPAD CONNECTION
-    connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::changeConectionStatus);
+    connect (m_gamepad, &QGamepad::connectedChanged, this, &GamepadDriver::showConectionStatus);
 
 /// CONNECT GAMEPAD KEYS
     connect (m_gamepad, &QGamepad::axisLeftXChanged, m_cursorEvent, [=]() {
@@ -111,7 +111,6 @@ void GamepadDriver::windowCloseHide()
 
     if (button->text() == "X" && this->isVisible()) {
         this->hide();
-        m_trayIcon->show();
     }
     if (button->text() == "__") {
         if (this->isVisible()) { this->showMinimized(); }
@@ -127,11 +126,11 @@ void GamepadDriver::trayIconClicked(QSystemTrayIcon::ActivationReason reason)
 {
     if (reason == QSystemTrayIcon::Trigger) {
         if (this->isVisible() == false) { this->show(); }
-        else { this->hide(); m_trayIcon->show(); }
+        else { this->hide(); }
     }
 }
 
-void GamepadDriver::changeConectionStatus()
+void GamepadDriver::showConectionStatus()
 {
     if (m_gamepad->isConnected()) { ui->l_checkConnection->setText("Connected"); }
     else { ui->l_checkConnection->setText("Disconnected"); }

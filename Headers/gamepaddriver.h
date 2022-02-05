@@ -1,7 +1,7 @@
 #ifndef GAMEPADDRIVER_H
 #define GAMEPADDRIVER_H
 
-#include "mousecursorevents.h"
+#include "Headers/mousecursorevents.h"
 
 #include <QMainWindow>
 #include <QObject>
@@ -42,7 +42,7 @@ public slots:
     void windowCloseHide();
     void trayIconClicked(QSystemTrayIcon::ActivationReason reason);
 
-    void changeConectionStatus();
+    void showConectionStatus();
     void changeSensitivity(int sliderValue);
 
 private:
