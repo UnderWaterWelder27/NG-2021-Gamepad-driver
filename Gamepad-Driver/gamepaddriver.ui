@@ -217,7 +217,7 @@ color: rgb(255, 255, 255);</string>
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>9</pointsize>
                 <italic>false</italic>
                 <bold>true</bold>
                 <underline>false</underline>
@@ -270,7 +270,7 @@ color: rgb(255, 255, 255);</string>
               </property>
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>9</pointsize>
                 <italic>false</italic>
                 <bold>true</bold>
                 <underline>false</underline>

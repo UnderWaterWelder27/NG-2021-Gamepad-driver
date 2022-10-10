@@ -1,4 +1,4 @@
-#include "Headers/gamepaddriver.h"
+#include "source/gamepaddriver.h"
 
 #include <QApplication>
 

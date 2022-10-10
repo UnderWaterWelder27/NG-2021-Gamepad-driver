@@ -1,4 +1,4 @@
-#include "Headers/gamepaddriver.h"
+#include "source/gamepaddriver.h"
 #include "ui_gamepaddriver.h"
 
 GamepadDriver::GamepadDriver(QWidget *parent)

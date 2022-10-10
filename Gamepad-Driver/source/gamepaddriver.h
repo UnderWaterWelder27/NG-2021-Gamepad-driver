@@ -1,7 +1,7 @@
 #ifndef GAMEPADDRIVER_H
 #define GAMEPADDRIVER_H
 
-#include "Headers/mousecursorevents.h"
+#include "source/mousecursorevents.h"
 
 #include <QMainWindow>
 #include <QObject>
